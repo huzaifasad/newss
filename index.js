@@ -1,30 +1,34 @@
- 
-import products from "./routes/AddingProducts.js";
-// import userRoutes from './routes/AddingUser.js';
-// index.js
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+const express = require("express");
 const app = express();
-// index.js (server)
-const url = 'mongodb+srv://mhuzaifatariq7:luckynumber7@cluster0.mjqk6et.mongodb.net/your-database-name?retryWrites=true&w=majority';
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log('connected to the database'))
-.catch(()=> console.log('not conncted'));
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
-app.listen(5000);
-app.use(cors(
-    {
-        origin:["https://midwork-frontend.vercel.app"],
-        methods:["POST","GET"],
-        credentials:true
-    }
+const url =
+  "mongodb+srv://huzaifa084567:12345@cluster0.wpihnwn.mongodb.net/your-database-name?retryWrites=true&w=majority";
+mongoose
+  .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("connected to the database"))
+  .catch(() => console.log("not conncted"));
 
-));
-app.get("/",(req,res)=>{
-    res.json("Hello");
-})
+app.listen(1000, () => {
+  console.log("Server is running on port 1000");
+});
+
+app.use(
+  cors({
+    origin: [""],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
+const laptoprouter = require("./schemas/productrouter/laptop");
+const userrouter = require("./schemas/productrouter/user");
 app.use(bodyParser.json({ extended: true }));
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', products);
+app.use("/laptop", laptoprouter);
+app.use("/user", userrouter);
+app.use("/", (req, res) => {
+  res.send("thiis response");
+});
