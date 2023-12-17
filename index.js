@@ -16,11 +16,7 @@ app.listen(1000, () => {
 });
 
 app.use(
-  cors({
-    origin: [""],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
+  cors()
 );
 const laptoprouter = require("./schemas/productrouter/laptop");
 const userrouter = require("./schemas/productrouter/user");
