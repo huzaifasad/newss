@@ -23,8 +23,6 @@ const userrouter = require("./schemas/productrouter/user");
 app.use(bodyParser.json({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/laptop", laptoprouter);
-app.use("/user", userrouter);
 app.use("/", (req, res) => {
   res.send("thiis response");
 });
