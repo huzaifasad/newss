@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const laptopSchema = mongoose.Schema({
   name: String,
@@ -7,17 +7,16 @@ const laptopSchema = mongoose.Schema({
   productQuantity: Number,
   ramSize: Number,
   type: String,
-  brand:String,
-  // images: [Buffer],
+  brand: String,
   images: [{
     data: Buffer,
     contentType: String,
   }],
   features: [{
     name: String
-    }],
+  }],
 });
 
 const Laptop = mongoose.model('Laptop', laptopSchema);
 
-module.exports = Laptop;
+export default Laptop;
