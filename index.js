@@ -3,7 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import multer from 'multer';
-import Laptop from './schemas/productschema/Laptop.js';
+import Laptop from './schemas/productschema/laptop.js';
 import Signup from './schemas/user.js';
 
 const app = express();
