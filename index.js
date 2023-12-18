@@ -19,7 +19,7 @@ app.listen(5000);
 
 app.use(
   cors({
-    origin: [''],
+    origin: ['https://6580423fa6dfa73f5ab104f1--monumental-squirrel-cca672.netlify.app/'],
     methods: ['POST', 'GET', 'PUT', 'DELETE'], // Include PUT and DELETE methods
     credentials: true,
   })
