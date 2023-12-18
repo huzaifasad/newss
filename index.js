@@ -3,7 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import multer from 'multer';
-import Laptop from './schemas/productschema/laptop.js';
+import Laptop from './schemas/productschema/Laptop.js';
 import Signup from './schemas/user.js';
 
 const app = express();
@@ -19,7 +19,7 @@ app.listen(5000);
 
 app.use(
   cors({
-    origin: [''],
+    origin: ['https://midwork-frontend.vercel.app'],
     methods: ['POST', 'GET', 'PUT', 'DELETE'], // Include PUT and DELETE methods
     credentials: true,
   })
@@ -29,45 +29,49 @@ app.get('/', (req, res) => {
   res.json('ALLAH HU AKBAR');
 });
 
-app.post('/laptop/add', async (req, res) => {
-  try {
-    const { name, price, desc, productQuantity, ramSize, type, brand, features, images } = req.body;
+app.post('/laptop/add', upload.array('photos', 3), async (req, res) => {
+  const { name, price, desc, productQuantity, ramSize, type, brand } = req.body;
+  console.log(req.body);
+  console.log(req.files);
 
-    // Create a new laptop instance
-    const newLaptop = new Laptop({
-      name,
-      price,
-      desc,
-      productQuantity,
-      ramSize,
-      type,
-      brand,
-      images,
-      features,
-    });
+  const images = req.files.map((file) => ({
+    data: file.buffer,
+    contentType: file.mimetype,
+  }));
 
-    // Save the laptop to the database
-    const savedLaptop = await newLaptop.save();
+  const features = JSON.parse(req.body.features);
 
-    res.status(201).json({ message: 'Laptop added successfully', laptop: savedLaptop });
-  } catch (error) {
-    console.error('Error adding laptop:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  const newLaptop = new Laptop({
+    name,
+    price,
+    desc,
+    productQuantity,
+    ramSize,
+    type,
+    brand,
+    images,
+    features,
+  });
+
+  const savedLaptop = await newLaptop.save();
+
+  res.status(201).json({ message: 'Laptop added successfully', laptop: savedLaptop });
 });
  
 app.get('/laptop/get', async (req, res) => {
-   try {
+  try {
     const laptops = await Laptop.find();
 
-    // Convert binary image data to base64
-  
+    const laptopsWithBase64Images = laptops.map((laptop) => {
+      const images = laptop.images.map((image) => ({
+        ...image,
+        data: image.data.toString('base64'),
+      }));
 
-    res.send(laptops);
-  } catch (error) {
-    console.error('Error fetching laptops:', error);
-    res.status(500).send({ error: 'Internal Server Error' });
-  }
+      return {
+        ...laptop.toObject(),
+        images,
+      };
     });
 
     res.send(laptopsWithBase64Images);
