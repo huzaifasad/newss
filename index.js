@@ -22,32 +22,7 @@ app.use(cors(
 app.get("/",(req,res)=>{
     res.json("ALLAH HU AKBAR");
 })
-app.post("laptop/add", upload.array("photos", 3), async (req, res) => {
-  const { name, price, desc, productQuantity, ramSize, type, brand } = req.body;
-  console.log(req.body);
-  console.log(req.files);
 
-  // Extract uploaded file information
-  const images = req.files.map((file) => ({
-    data: file.buffer,
-    contentType: file.mimetype,
-  }));
-
-  // Parse the features field
-  const features = JSON.parse(req.body.features);
-
-  // Create a new laptop instance
-  const newLaptop = new Laptop({
-    name,
-    price,
-    desc,
-    productQuantity,
-    ramSize,
-    type,
-    brand,
-    images,
-    features,
-  });
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
