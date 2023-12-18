@@ -1,3 +1,5 @@
+// schemas/productschema/Laptop.js
+
 import mongoose from 'mongoose';
 
 const laptopSchema = mongoose.Schema({
@@ -8,15 +10,14 @@ const laptopSchema = mongoose.Schema({
   ramSize: Number,
   type: String,
   brand: String,
-  images: [{
-    data: Buffer,
-    contentType: String,
-  }],
-  features: [{
-    name: String
-  }],
+  images: [String],
+  features: [
+    {
+      name: String,
+    },
+  ],
 });
 
 const Laptop = mongoose.model('Laptop', laptopSchema);
 
-export default Laptop;
+export { Laptop }; // Use named export
