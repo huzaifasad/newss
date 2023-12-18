@@ -172,6 +172,4 @@ app.post('user/signup', async (req, res) => {
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', (req, res) => {
-  res.send('This is a response');
-});
+
