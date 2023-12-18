@@ -1,6 +1,8 @@
+// Import mongoose library
 import mongoose from 'mongoose';
 
-const laptopSchema = mongoose.Schema({
+// Define the laptop schema
+const laptopSchema = new mongoose.Schema({
   name: String,
   price: Number,
   desc: String,
@@ -8,15 +10,11 @@ const laptopSchema = mongoose.Schema({
   ramSize: Number,
   type: String,
   brand: String,
-  images: [{
-    data: Buffer,
-    contentType: String,
-  }],
+  images: [String], // Store multiple image URLs as strings
   features: [{
     name: String
   }],
 });
 
-const Laptop = mongoose.model('Laptop', laptopSchema);
-
-export default Laptop;
+// Define and export the Laptop model
+export const Laptop = mongoose.model('Laptop', laptopSchema);
