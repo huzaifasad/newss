@@ -10,11 +10,9 @@ import Signup from './schemas/user.js';
 const app = express();
 const upload = multer();
 
-const url = 'mongodb+srv://mhuzaifatariq7:luckynumber7@cluster0.mjqk6et.mongodb.net/your-database-name?retryWrites=true&w=majority';
-mongoose
-  .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to the database'))
-  .catch(() => console.log('Not connected'));
+mongoose.connect('mongodb+srv://saad:123@newss.tmhacnn.mongodb.net/?retryWrites=true&w=majority')
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("Failed to connect to MongoDB:", err));
 
 app.listen(5000);
 
